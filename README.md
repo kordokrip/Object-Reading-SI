@@ -31,10 +31,13 @@ Analysis of economic situation through image learning using satellite images (ob
 도로 추출: 도로 윤곽과 종류를 지도 좌표와 함께 geojson 형태로 제공
 - 위치 모양: polygon 형태의 닫힌 도형
 
-속성	설명
-image_id:	영상 ID
-time:	영상 생성 시간
-type_id:	정수 (1~N), 클래스
-type_name:	클래스 이름
+Building-detection 
 
 ![building_results](https://github.com/user-attachments/assets/11e79fa7-2725-4231-8322-23a0b9d1c0c3)
+
+
+
+Roads-detection 
+
+![class7-2](https://github.com/user-attachments/assets/43ca6097-e65c-4401-904e-1b2d4eb7d8f5)
+![class7-1](https://github.com/user-attachments/assets/8f49d408-5d15-48f2-b118-8acf9bc3295e)
