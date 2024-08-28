@@ -36,3 +36,5 @@ image_id:	영상 ID
 time:	영상 생성 시간
 type_id:	정수 (1~N), 클래스
 type_name:	클래스 이름
+
+![building_results](https://github.com/user-attachments/assets/11e79fa7-2725-4231-8322-23a0b9d1c0c3)
