@@ -9,6 +9,7 @@ class BuildingDetectionApp(QMainWindow):
     def __init__(self):
         super().__init__()
         self.initUI()
+        self.load_model()
 
     def initUI(self):
         self.setWindowTitle("Building Detection")
@@ -29,6 +30,16 @@ class BuildingDetectionApp(QMainWindow):
         container.setLayout(layout)
         self.setCentralWidget(container)
 
+    def load_model(self):
+        # Load your pretrained model here
+        model_path = 'path_to_your_trained_model.pth'
+        self.model = torch.load(model_path)
+        self.model.eval()
+        self.transform = transforms.Compose([
+            transforms.Resize((512, 512)),
+            transforms.ToTensor()
+        ])
+
     def load_image(self):
         options = QFileDialog.Options()
         fileName, _ = QFileDialog.getOpenFileName(self, "Select Satellite Image", "", "Images (*.png *.xpm *.jpg);;All Files (*)", options=options)
@@ -37,28 +48,23 @@ class BuildingDetectionApp(QMainWindow):
             self.detect_buildings(fileName)
 
     def detect_buildings(self, image_path):
-        # Placeholder for object detection code
-        # Load image and run detection algorithm
         image = Image.open(image_path)
-        transform = transforms.Compose([
-            transforms.Resize((512, 512)),
-            transforms.ToTensor()
-        ])
-        image_tensor = transform(image).unsqueeze(0)
-        
-        # Assuming you have a model loaded
-        # model = your_model
-        # output = model(image_tensor)
-        
-        # For now, we just update the info label
-        self.infoLabel.setText("Detected building at coordinates (x, y)")
+        image_tensor = self.transform(image).unsqueeze(0)
+        with torch.no_grad():
+            output = self.model(image_tensor)
+
+        # Here, you would process the output to find building coordinates
+        # For this example, we'll just simulate detection
+        detected_buildings = [(100, 150), (200, 250)]  # Example coordinates
+
+        for coords in detected_buildings:
+            # This would be a more complex drawing in a real application
+            self.infoLabel.setText(f"Detected building at coordinates {coords}")
 
     def display_building_info(self, building_id):
         # Placeholder for fetching building information
-        # Fetch information from your database
         info = f"Building ID: {building_id}\nLocation: Sample Location\nType: Residential"
         self.infoLabel.setText(info)
-
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
